@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+
+      fx:controller="com.example.platform_for_volunteer_projects.MainController">
+   <children>
+      <TabPane layoutX="11.0" layoutY="11.0" prefHeight="378.0" prefWidth="578.0" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+
+            <Tab text="Лента">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView id="tableViewNews" layoutX="14.0" layoutY="14.0" prefHeight="321.0" prefWidth="551.0">
+                           <columns>
+                              <TableColumn prefWidth="75.0" text="C1" />
+                              <TableColumn prefWidth="75.0" text="C2" />
+                           </columns>
+                        </TableView>
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+
+            <Tab text="Запись">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tableViewRecords" layoutX="14.0" layoutY="14.0" prefHeight="282.0" prefWidth="545.0">
+                           <columns>
+                              <TableColumn fx:id="nameColumn" prefWidth="100.0" text="Название"/>
+                              <TableColumn fx:id="descriptionColumn" prefWidth="150.0" text="Описание"/>
+                              <TableColumn fx:id="locationColumn" prefWidth="100.0" text="Место"/>
+                              <TableColumn fx:id="maxPeopleColumn" prefWidth="75.0" text="Макс. участников"/>
+                           </columns>
+                        </TableView>
+                        <Button fx:id="buttonRecordsMeets" layoutX="235.0" layoutY="309.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" text="Записаться" />
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="График">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tableViewMeetings" layoutX="14.0" layoutY="14.0" prefHeight="320.0" prefWidth="546.0">
+                           <columns>
+                              <TableColumn prefWidth="75.0" text="C1" />
+                              <TableColumn prefWidth="75.0" text="C2" />
+                           </columns>
+                        </TableView>
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </children>
+</Pane>

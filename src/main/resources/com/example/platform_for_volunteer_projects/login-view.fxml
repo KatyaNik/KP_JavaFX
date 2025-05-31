@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.platform_for_volunteer_projects.LoginController">
+    <children>
+        <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="100.0">
+            <children>
+                <Label style="-fx-font-size: 24; -fx-font-weight: bold;" text="Авторизация" />
+
+                <TextField fx:id="textFieldMail" prefWidth="200.0" promptText="Email" />
+                <PasswordField fx:id="textFieldPassword" prefWidth="200.0" promptText="Пароль" />
+
+                <HBox alignment="CENTER" spacing="10.0">
+                    <children>
+                        <Button fx:id="buttonLogin" onAction="#handleLoginButton" text="Войти" />
+                        <Button fx:id="buttonRegistration" onAction="#handleRegistrationButton" text="Зарегистрироваться" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
