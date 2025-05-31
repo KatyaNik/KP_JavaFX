@@ -1,9 +1,6 @@
 package model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public class Event {
     private final IntegerProperty idEvent = new SimpleIntegerProperty();
@@ -16,13 +13,12 @@ public class Event {
     private final IntegerProperty idStatus = new SimpleIntegerProperty();
     private final IntegerProperty idOrganizer = new SimpleIntegerProperty();
 
-    // Конструкторы
     public Event() {
-        // Пустой конструктор для JavaFX
     }
 
     public Event(int idEvent, String name, String description, String location,
-                 int maxPeople, int idType, int idStatus, int idOrganizer, String dataEvent) {
+                 int maxPeople, int idType, int idStatus, int idOrganizer,
+                 String dataEvent) {
         setIdEvent(idEvent);
         setName(name);
         setDescription(description);
@@ -34,56 +30,67 @@ public class Event {
         setDataEvent(dataEvent);
     }
 
-    // Геттеры и сеттеры для idEvent
+    // Геттеры и сеттеры
     public int getIdEvent() { return idEvent.get(); }
-    public IntegerProperty idEventProperty() { return idEvent; }
     public void setIdEvent(int idEvent) { this.idEvent.set(idEvent); }
-    public void setDataEvent (String dataEvent){this.dataEvent.set(dataEvent);}
+    public IntegerProperty idEventProperty() { return idEvent; }
 
-    // Геттеры и сеттеры для name
     public String getName() { return name.get(); }
-    public StringProperty nameProperty() { return name; }
     public void setName(String name) { this.name.set(name); }
+    public StringProperty nameProperty() { return name; }
 
-    // Геттеры и сеттеры для description
     public String getDescription() { return description.get(); }
-    public StringProperty descriptionProperty() { return description; }
     public void setDescription(String description) { this.description.set(description); }
+    public StringProperty descriptionProperty() { return description; }
 
-    // Геттеры и сеттеры для location
     public String getLocation() { return location.get(); }
-    public StringProperty locationProperty() { return location; }
     public void setLocation(String location) { this.location.set(location); }
+    public StringProperty locationProperty() { return location; }
 
-    // Геттеры и сеттеры для maxPeople
     public int getMaxPeople() { return maxPeople.get(); }
-    public IntegerProperty maxPeopleProperty() { return maxPeople; }
     public void setMaxPeople(int maxPeople) { this.maxPeople.set(maxPeople); }
+    public IntegerProperty maxPeopleProperty() { return maxPeople; }
 
-    // Геттеры и сеттеры для idType
+    public String getDataEvent() { return dataEvent.get(); }
+    public void setDataEvent(String dataEvent) { this.dataEvent.set(dataEvent); }
+    public StringProperty dataEventProperty() { return dataEvent; }
+
     public int getIdType() { return idType.get(); }
-    public IntegerProperty idTypeProperty() { return idType; }
     public void setIdType(int idType) { this.idType.set(idType); }
+    public IntegerProperty idTypeProperty() { return idType; }
 
-    // Геттеры и сеттеры для idStatus
     public int getIdStatus() { return idStatus.get(); }
-    public IntegerProperty idStatusProperty() { return idStatus; }
     public void setIdStatus(int idStatus) { this.idStatus.set(idStatus); }
+    public IntegerProperty idStatusProperty() { return idStatus; }
 
-    // Геттеры и сеттеры для idOrganizer
     public int getIdOrganizer() { return idOrganizer.get(); }
-    public String getDataEvent(){return dataEvent.get();}
-    public IntegerProperty idOrganizerProperty() { return idOrganizer; }
     public void setIdOrganizer(int idOrganizer) { this.idOrganizer.set(idOrganizer); }
+    public IntegerProperty idOrganizerProperty() { return idOrganizer; }
+
+    // Методы для работы с датой (используем dataEvent как дату)
+    public String getDate() {
+        // Здесь можно добавить форматирование даты при необходимости
+        return getDataEvent();
+    }
+    public StringProperty dateProperty() { return dataEventProperty(); }
+
+    // Методы для времени (поскольку в БД нет отдельного поля, можно установить фиксированное значение)
+    public String getTime() { return "14:00"; } // Пример фиксированного времени
+    public StringProperty timeProperty() { return new SimpleStringProperty(getTime()); }
+
+    // Методы для статуса (используем id_status_of_event)
+    public String getStatus() {
+        switch(getIdStatus()) {
+            case 1: return "Подтверждено";
+            case 2: return "Ожидание";
+            case 3: return "Отклонено";
+            default: return "Неизвестно";
+        }
+    }
+    public StringProperty statusProperty() { return new SimpleStringProperty(getStatus()); }
 
     @Override
     public String toString() {
-        return "Event{" +
-                "idEvent=" + getIdEvent() +
-                ", name=" + getName() +
-                ", location=" + getLocation() +
-                ", maxPeople=" + getMaxPeople() +
-                ", dataEvent=" + getDataEvent() +
-                '}';
+        return getName();
     }
 }

@@ -4,6 +4,8 @@ module com.example.platform_for_volunteer_projects {
     requires java.sql;
     requires jbcrypt; // Добавьте эту строку
     requires java.mail;
+    requires itextpdf;
+    requires org.apache.poi.ooxml;
 
     opens com.example.platform_for_volunteer_projects to javafx.fxml;
     exports com.example.platform_for_volunteer_projects;
