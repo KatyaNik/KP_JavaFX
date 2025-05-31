@@ -3,10 +3,15 @@ package com.example.platform_for_volunteer_projects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import model.CurrentUser;
 
+import java.io.IOException;
 import java.sql.*;
 
 public class OrganizerController {
@@ -42,6 +47,32 @@ public class OrganizerController {
         this.currentUser = user;
     }
 
+
+    @FXML
+    private Button buttonLogout;
+
+    @FXML
+    private void handleLogout() {
+        try {
+            // Закрываем текущее окно
+            Stage stage = (Stage) buttonLogout.getScene().getWindow();
+            stage.close();
+
+            // Загружаем окно входа
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
+            Parent root = loader.load();
+
+            // Создаем новое окно
+            Stage loginStage = new Stage();
+            loginStage.setScene(new Scene(root));
+            loginStage.setTitle("Вход в систему");
+            loginStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Ошибка", "Не удалось открыть окно входа", e.getMessage());
+        }
+    }
     @FXML
     public void initialize() {
         // Инициализация колонок таблицы новостей

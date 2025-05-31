@@ -7,15 +7,29 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import model.CurrentUser;
 import model.Event; // Исправленный импорт
+import javafx.application.Platform;
+import javax.mail.*;
+import javax.mail.internet.*;
+import java.util.Arrays;
+import java.util.Properties;
 
+import java.io.IOException;
 import java.sql.*;
+import javax.mail.Authenticator; // Важно: это из javax.mail, а не java.net
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import java.util.Properties;
 
 public class MainController {
     private CurrentUser currentUser;
@@ -33,6 +47,31 @@ public class MainController {
     @FXML
     private Button buttonRecordsMeets;
 
+    @FXML
+    private Button buttonLogout;
+
+    @FXML
+    private void handleLogout() {
+        try {
+            // Закрываем текущее окно
+            Stage stage = (Stage) buttonLogout.getScene().getWindow();
+            stage.close();
+
+            // Загружаем окно входа
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
+            Parent root = loader.load();
+
+            // Создаем новое окно
+            Stage loginStage = new Stage();
+            loginStage.setScene(new Scene(root));
+            loginStage.setTitle("Вход в систему");
+            loginStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Ошибка базы данных", "Не удалось открыть окно входа: " + e.getMessage());
+        }
+    }
     private ObservableList<Event> eventList = FXCollections.observableArrayList();
     private Event selectedEvent;
 
@@ -119,24 +158,92 @@ public class MainController {
         }
 
         try {
-            // Здесь должна быть логика записи в БД
-            String emailContent = String.format(
-                    "Уважаемый %s, вы успешно записались на событие: %s\nМесто: %s\nМакс. участников: %d",
+            // 1. Запись в БД (ваша существующая логика)
+            try {
+                // Здесь должна быть логика записи в БД
+                String emailContent = String.format(
+                        "Уважаемый %s, вы успешно записались на событие: %s\nМесто: %s\nМакс. участников: %d",
+                        currentUser.getUsername(),
+                        selectedEvent.getName(),
+                        selectedEvent.getLocation(),
+                        selectedEvent.getMaxPeople()
+                );
+
+
+                showAlert("Успешно", "Вы записались на событие. Подтверждение будет отправлено на вашу почту");
+            } catch (Exception e) {
+                showAlert("Ошибка", "Не удалось выполнить запись: " + e.getMessage());
+            }
+            // 2. Отправка email
+            String to = "katyanikitos@gmail.com"; // Предполагаем, что у CurrentUser есть email
+            String subject = "Подтверждение регистрации на мероприятие";
+            String body = String.format(
+                    "Уважаемый %s,\n\n" +
+                            "Вы успешно зарегистрировались на мероприятие:\n" +
+                            "Название: %s\n" +
+                            "Описание: %s\n" +
+                            "Место проведения: %s\n" +
+                            "Дата: %s\n" +
+                            "Максимальное количество участников: %d\n\n" +
+                            "С уважением,\nКоманда волонтерской платформы",
                     currentUser.getUsername(),
                     selectedEvent.getName(),
+                    selectedEvent.getDescription(),
                     selectedEvent.getLocation(),
+                    selectedEvent.getDataEvent(),
                     selectedEvent.getMaxPeople()
             );
 
-            // В реальном приложении здесь будет отправка email
-            System.out.println("Отправка email:\n" + emailContent);
+            // Отправка email в отдельном потоке, чтобы не блокировать UI
+            new Thread(() -> {
+                try {
+                    sendEmail(to, subject, body);
+                    Platform.runLater(() ->
+                            showAlert("Успешно", "Вы записались на событие. Подтверждение отправлено на " + to)
+                    );
+                } catch (Exception e) {
+                    Platform.runLater(() ->
+                            showAlert("Ошибка", "Не удалось отправить письмо: " + e.getMessage())
+                    );
+                }
+            }).start();
 
-            showAlert("Успешно", "Вы записались на событие. Подтверждение будет отправлено на вашу почту");
         } catch (Exception e) {
             showAlert("Ошибка", "Не удалось выполнить запись: " + e.getMessage());
         }
     }
 
+    private void sendEmail(String to, String subject, String body) throws MessagingException {
+        final String username = "katyanikitos@gmail.com"; // Ваш Gmail адрес
+        final String password = "rrcv srhp bloo pugf"; // Пароль приложения
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject(subject);
+            message.setText(body);
+
+            Transport.send(message);
+            System.out.println("Email sent successfully via Gmail!");
+        } catch (MessagingException e) {
+            System.err.println("Failed to send email via Gmail:");
+            e.printStackTrace();
+            throw e;
+        }
+    }
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

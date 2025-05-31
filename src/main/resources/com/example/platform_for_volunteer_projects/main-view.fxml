@@ -1,58 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="500.0" prefWidth="800.0"
+      style="-fx-background-color: #f5f5f5;"
+      xmlns="http://javafx.com/javafx/17.0.2-ea"
+      xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.example.platform_for_volunteer_projects.MainController">
-   <children>
-      <TabPane layoutX="11.0" layoutY="11.0" prefHeight="378.0" prefWidth="578.0" tabClosingPolicy="UNAVAILABLE">
-         <tabs>
 
+   <children>
+      <!-- Заголовок -->
+      <Label layoutX="20.0" layoutY="10.0" text="Платформа волонтерских проектов"
+             style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+      <!-- Кнопка выхода -->
+      <Button fx:id="buttonLogout" layoutX="700.0" layoutY="10.0" mnemonicParsing="false"
+              prefHeight="30.0" prefWidth="80.0" text="Выход" onAction="#handleLogout"
+              style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
+
+      <!-- Основная панель с вкладками -->
+      <TabPane layoutX="20.0" layoutY="50.0" prefHeight="430.0" prefWidth="760.0"
+               tabClosingPolicy="UNAVAILABLE" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 5;">
+
+         <tabs>
+            <!-- Вкладка "Лента" -->
             <Tab text="Лента">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="760.0">
                      <children>
-                        <TableView id="tableViewNews" layoutX="14.0" layoutY="14.0" prefHeight="321.0" prefWidth="551.0">
+                        <TableView fx:id="tableViewNews" layoutX="10.0" layoutY="10.0"
+                                   prefHeight="380.0" prefWidth="740.0" style="-fx-border-color: #ddd;">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="C1" />
-                              <TableColumn prefWidth="75.0" text="C2" />
+                              <TableColumn fx:id="newsTitleColumn" prefWidth="300.0" text="Название события"
+                                           style="-fx-font-weight: bold;"/>
+                              <TableColumn fx:id="newsDateColumn" prefWidth="150.0" text="Дата" />
+                              <TableColumn fx:id="newsLocationColumn" prefWidth="150.0" text="Место" />
+                              <TableColumn fx:id="newsStatusColumn" prefWidth="140.0" text="Статус" />
                            </columns>
                         </TableView>
-                     </children></AnchorPane>
+                     </children>
+                  </AnchorPane>
                </content>
             </Tab>
 
+            <!-- Вкладка "Запись" -->
             <Tab text="Запись">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="760.0">
                      <children>
-                        <TableView fx:id="tableViewRecords" layoutX="14.0" layoutY="14.0" prefHeight="282.0" prefWidth="545.0">
+                        <TableView fx:id="tableViewRecords" layoutX="10.0" layoutY="10.0"
+                                   prefHeight="340.0" prefWidth="740.0" style="-fx-border-color: #ddd;">
                            <columns>
-                              <TableColumn fx:id="nameColumn" prefWidth="100.0" text="Название"/>
-                              <TableColumn fx:id="descriptionColumn" prefWidth="150.0" text="Описание"/>
-                              <TableColumn fx:id="locationColumn" prefWidth="100.0" text="Место"/>
-                              <TableColumn fx:id="maxPeopleColumn" prefWidth="75.0" text="Макс. участников"/>
+                              <TableColumn fx:id="nameColumn" prefWidth="200.0" text="Название"
+                                           style="-fx-font-weight: bold;"/>
+                              <TableColumn fx:id="descriptionColumn" prefWidth="250.0" text="Описание" />
+                              <TableColumn fx:id="locationColumn" prefWidth="150.0" text="Место" />
+                              <TableColumn fx:id="maxPeopleColumn" prefWidth="140.0" text="Макс. участников" />
                            </columns>
                         </TableView>
-                        <Button fx:id="buttonRecordsMeets" layoutX="235.0" layoutY="309.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="108.0" text="Записаться" />
-                     </children></AnchorPane>
+                        <Button fx:id="buttonRecordsMeets" layoutX="330.0" layoutY="360.0"
+                                mnemonicParsing="false" prefHeight="30.0" prefWidth="120.0"
+                                text="Записаться"
+                                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                     </children>
+                  </AnchorPane>
                </content>
             </Tab>
+
+            <!-- Вкладка "График" -->
             <Tab text="График">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="760.0">
                      <children>
-                        <TableView fx:id="tableViewMeetings" layoutX="14.0" layoutY="14.0" prefHeight="320.0" prefWidth="546.0">
+                        <TableView fx:id="tableViewMeetings" layoutX="10.0" layoutY="10.0"
+                                   prefHeight="380.0" prefWidth="740.0" style="-fx-border-color: #ddd;">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="C1" />
-                              <TableColumn prefWidth="75.0" text="C2" />
+                              <TableColumn fx:id="meetingNameColumn" prefWidth="250.0" text="Мероприятие"
+                                           style="-fx-font-weight: bold;"/>
+                              <TableColumn fx:id="meetingDateColumn" prefWidth="150.0" text="Дата" />
+                              <TableColumn fx:id="meetingTimeColumn" prefWidth="150.0" text="Время" />
+                              <TableColumn fx:id="meetingStatusColumn" prefWidth="190.0" text="Статус записи" />
                            </columns>
                         </TableView>
-                     </children></AnchorPane>
+                     </children>
+                  </AnchorPane>
                </content>
             </Tab>
          </tabs>

@@ -68,7 +68,28 @@ public class LoginController {
             showAlert(Alert.AlertType.ERROR, "Ошибка", "Ошибка при входе в систему: " + e.getMessage());
         }
     }
+    @FXML
+    public Button buttonView;
+    public void handleButtonView(){
+        try {
+            // Закрываем текущее окно
+            Stage stage = (Stage) buttonView.getScene().getWindow();
+            stage.close();
 
+            // Загружаем окно авторизации
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("observer-view.fxml"));
+            Parent root = loader.load();
+
+            Stage loginStage = new Stage();
+            loginStage.setScene(new Scene(root));
+            loginStage.setTitle("Авторизация");
+            loginStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Ошибка", "Ошибка при входе в систему: " + e.getMessage());
+        }
+    }
     private void openMainWindow(CurrentUser user) {
         Stage currentStage = null;
         Stage mainStage = null;
@@ -88,7 +109,7 @@ public class LoginController {
 
             FXMLLoader fxmlLoader = new FXMLLoader(fxmlUrl);
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root, 600, 400);
+            Scene scene = new Scene(root, 800, 500);
 
             // Получаем контроллер и передаем данные
             Object controller = fxmlLoader.getController();
@@ -130,7 +151,7 @@ public class LoginController {
                 throw new IOException("Cannot find registration-view.fxml");
             }
             FXMLLoader fxmlLoader = new FXMLLoader(fxmlUrl);
-            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+            Scene scene = new Scene(fxmlLoader.load(), 800, 713);
             Stage registrationStage = new Stage();
             registrationStage.setTitle("Регистрация");
             registrationStage.setScene(scene);

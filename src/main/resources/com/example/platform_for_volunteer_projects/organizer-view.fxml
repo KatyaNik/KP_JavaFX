@@ -2,60 +2,126 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.platform_for_volunteer_projects.OrganizerController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="600.0" prefWidth="800.0"
+      style="-fx-background-color: #f5f5f5;"
+      xmlns="http://javafx.com/javafx/17.0.2-ea"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.platform_for_volunteer_projects.OrganizerController">
+
     <children>
-        <TabPane layoutX="11.0" layoutY="11.0" prefHeight="378.0" prefWidth="578.0" tabClosingPolicy="UNAVAILABLE">
-            <tabs>
+        <!-- Заголовок -->
+        <Label layoutX="20.0" layoutY="15.0" text="Панель организатора"
+               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
 
+        <!-- Кнопка выхода -->
+        <Button fx:id="buttonLogout" layoutX="700.0" layoutY="10.0" mnemonicParsing="false"
+                prefHeight="30.0" prefWidth="80.0" text="Выход" onAction="#handleLogout"
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
+
+        <!-- Основная панель с вкладками -->
+        <TabPane layoutX="20.0" layoutY="50.0" prefHeight="530.0" prefWidth="760.0"
+                 tabClosingPolicy="UNAVAILABLE" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 5;">
+
+            <tabs>
+                <!-- Вкладка "Лента" -->
                 <Tab fx:id="tabLenta" text="Лента">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="760.0">
                             <children>
-                                <TableView fx:id="tableViewNews" layoutX="14.0" layoutY="14.0"
-                                           prefHeight="321.0" prefWidth="551.0">
+                                <TableView fx:id="tableViewNews" layoutX="10.0" layoutY="10.0"
+                                           prefHeight="480.0" prefWidth="740.0" style="-fx-border-color: #ddd;">
                                     <columns>
-                                        <TableColumn fx:id="newsColumn1" prefWidth="200.0" text="Название" />
-                                        <TableColumn fx:id="newsColumn2" prefWidth="150.0" text="Дата" />
+                                        <TableColumn fx:id="newsColumn1" prefWidth="370.0" text="Название"
+                                                     style="-fx-font-weight: bold;"/>
+                                        <TableColumn fx:id="newsColumn2" prefWidth="370.0" text="Дата" />
                                     </columns>
                                 </TableView>
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Создать новое событие">
+
+                <!-- Вкладка "Создать новое событие" -->
+                <Tab text="Создать событие">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="760.0">
                             <children>
-                                <TableView fx:id="eventsTable" layoutX="14.0" layoutY="14.0" prefHeight="281.0" prefWidth="262.0">
+                                <!-- Левая часть - таблица событий -->
+                                <TableView fx:id="eventsTable" layoutX="10.0" layoutY="10.0"
+                                           prefHeight="380.0" prefWidth="350.0" style="-fx-border-color: #ddd;">
                                     <columns>
-                                        <TableColumn fx:id="column1" prefWidth="75.0" text="Название" />
-                                        <TableColumn fx:id="column2" prefWidth="75.0" text="Дата" />
+                                        <TableColumn fx:id="column1" prefWidth="175.0" text="Название"
+                                                     style="-fx-font-weight: bold;"/>
+                                        <TableColumn fx:id="column2" prefWidth="175.0" text="Дата" />
                                     </columns>
                                 </TableView>
-                                <Button fx:id="buttonAddMeets" layoutX="432.0" layoutY="310.0" mnemonicParsing="false" onAction="#handleAddEvent" prefHeight="26.0" prefWidth="131.0" text="Добавить" />
-                                <Button fx:id="buttonRemoveMeets" layoutX="289.0" layoutY="310.0" mnemonicParsing="false" onAction="#handleRed" prefHeight="26.0" prefWidth="134.0" text="Редактировать" />
-                                <Button fx:id="buttonDeleteMeets" layoutX="149.0" layoutY="310.0" mnemonicParsing="false" onAction="#buttonDeleteMeetsOnAction" prefHeight="26.0" prefWidth="128.0" text="Удалить" />
-                                <TextField fx:id="textFieldNameMeet" layoutX="289.0" layoutY="14.0" prefHeight="26.0" prefWidth="271.0" promptText="Название" />
-                                <TextArea fx:id="textAreaDescriptionMeets" layoutX="289.0" layoutY="86.0" prefHeight="61.0" prefWidth="271.0" promptText="Описание" />
-                                <TextField fx:id="textFieldLocationMeets" layoutX="289.0" layoutY="155.0" prefHeight="31.0" prefWidth="271.0" promptText="Расположение" />
-                                <TextField fx:id="textFieldParticipantsMeets" layoutX="289.0" layoutY="230.0" prefHeight="26.0" prefWidth="271.0" promptText="Максимальное количество участников" />
-                                <ComboBox fx:id="comboBoxCategoryMeets" layoutX="289.0" layoutY="50.0" prefHeight="26.0" prefWidth="271.0" promptText="Категория мероприятия">
 
-                                </ComboBox>
-                                <ComboBox fx:id="comboBoxStatysMeets" layoutX="289.0" layoutY="271.0" prefHeight="26.0" prefWidth="271.0" promptText="Статус" />
-                                <TextField fx:id="textFieldPTimeToMeet" layoutX="289.0" layoutY="194.0" prefHeight="26.0" prefWidth="270.0" promptText="Время" />
-                            </children></AnchorPane>
+                                <!-- Правая часть - форма создания -->
+                                <VBox layoutX="370.0" layoutY="10.0" spacing="10.0" prefWidth="380.0">
+                                    <children>
+                                        <TextField fx:id="textFieldNameMeet" prefWidth="380.0" prefHeight="35.0"
+                                                   promptText="Название события" style="-fx-font-size: 14px;"/>
+
+                                        <ComboBox fx:id="comboBoxCategoryMeets" prefWidth="380.0" prefHeight="35.0"
+                                                  promptText="Категория мероприятия" style="-fx-font-size: 14px;"/>
+
+                                        <TextArea fx:id="textAreaDescriptionMeets" prefWidth="380.0" prefHeight="100.0"
+                                                  promptText="Описание события" style="-fx-font-size: 14px;"/>
+
+                                        <TextField fx:id="textFieldLocationMeets" prefWidth="380.0" prefHeight="35.0"
+                                                   promptText="Место проведения" style="-fx-font-size: 14px;"/>
+
+                                        <HBox spacing="10.0">
+                                            <children>
+                                                <TextField fx:id="textFieldPTimeToMeet" prefWidth="185.0" prefHeight="35.0"
+                                                           promptText="Время" style="-fx-font-size: 14px;"/>
+                                                <TextField fx:id="textFieldParticipantsMeets" prefWidth="185.0" prefHeight="35.0"
+                                                           promptText="Макс. участников" style="-fx-font-size: 14px;"/>
+                                            </children>
+                                        </HBox>
+
+                                        <ComboBox fx:id="comboBoxStatysMeets" prefWidth="380.0" prefHeight="35.0"
+                                                  promptText="Статус события" style="-fx-font-size: 14px;"/>
+                                    </children>
+                                </VBox>
+
+                                <!-- Кнопки управления -->
+                                <HBox layoutX="10.0" layoutY="400.0" spacing="15.0">
+                                    <children>
+                                        <Button fx:id="buttonDeleteMeets" text="Удалить" onAction="#buttonDeleteMeetsOnAction"
+                                                prefWidth="120.0" prefHeight="35.0"
+                                                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
+
+                                        <Button fx:id="buttonRemoveMeets" text="Редактировать" onAction="#handleRed"
+                                                prefWidth="120.0" prefHeight="35.0"
+                                                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
+
+                                        <Button fx:id="buttonAddMeets" text="Добавить" onAction="#handleAddEvent"
+                                                prefWidth="120.0" prefHeight="35.0"
+                                                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </AnchorPane>
                     </content>
                 </Tab>
+
+                <!-- Вкладка "Мои события" -->
                 <Tab text="Мои события">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="760.0">
                             <children>
-                                <TableView fx:id="tableViewMeetings" layoutX="14.0" layoutY="14.0" prefHeight="320.0" prefWidth="546.0">
+                                <TableView fx:id="tableViewMeetings" layoutX="10.0" layoutY="10.0"
+                                           prefHeight="480.0" prefWidth="740.0" style="-fx-border-color: #ddd;">
                                     <columns>
-                                        <TableColumn prefWidth="200.0" text="Название" />
-                                        <TableColumn prefWidth="200.0" text="Дата" />
+                                        <TableColumn prefWidth="370.0" text="Название"
+                                                     style="-fx-font-weight: bold;"/>
+                                        <TableColumn prefWidth="370.0" text="Дата" />
                                     </columns>
                                 </TableView>
                             </children>
