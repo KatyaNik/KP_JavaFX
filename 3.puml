@@ -1,0 +1,25 @@
+@startuml
+class com.example.platform_for_volunteer_projects.LoginController {
+- Button buttonLogin
+- Button buttonRegistration
+- TextField textFieldMail
+- PasswordField textFieldPassword
++ Button buttonView
+- void handleLoginButton()
++ void handleButtonView()
+- void openMainWindow(CurrentUser)
+- void handleRegistrationButton()
+- void closeWindow()
+- void showAlert(Alert.AlertType,String,String)
+}
+
+
+class com.example.platform_for_volunteer_projects.LoginController$PasswordUtils {
++ {static} String hash(String)
++ {static} boolean check(String,String)
+}
+
+
+
+com.example.platform_for_volunteer_projects.LoginController +.. com.example.platform_for_volunteer_projects.LoginController$PasswordUtils
+@enduml

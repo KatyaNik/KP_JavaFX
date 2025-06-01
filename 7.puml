@@ -1,0 +1,24 @@
+@startuml
+class com.example.platform_for_volunteer_projects.RegistrationController {
++ TextField regNameField
++ TextField regEmailField
++ PasswordField regPasswordField
++ ComboBox<String> roleComboBox
++ Button buttonLogin
+- void handleRegistration()
+- void openMainWindow()
+- boolean isEmailExists(Connection,String)
+- void clearFields()
+- void showAlert(Alert.AlertType,String,String)
+}
+
+
+class com.example.platform_for_volunteer_projects.RegistrationController$PasswordUtils {
++ {static} String hash(String)
++ {static} boolean check(String,String)
+}
+
+
+
+com.example.platform_for_volunteer_projects.RegistrationController +.. com.example.platform_for_volunteer_projects.RegistrationController$PasswordUtils
+@enduml

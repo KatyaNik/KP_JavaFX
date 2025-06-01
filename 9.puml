@@ -1,0 +1,61 @@
+@startuml
+class model.Event {
+- IntegerProperty idEvent
+- StringProperty name
+- StringProperty description
+- StringProperty location
+- IntegerProperty maxPeople
+- StringProperty dataEvent
+- IntegerProperty idType
+- IntegerProperty idStatus
+- IntegerProperty idOrganizer
++ int getIdEvent()
++ void setIdEvent(int)
++ IntegerProperty idEventProperty()
++ String getName()
++ void setName(String)
++ StringProperty nameProperty()
++ String getDescription()
++ void setDescription(String)
++ StringProperty descriptionProperty()
++ String getLocation()
++ void setLocation(String)
++ StringProperty locationProperty()
++ int getMaxPeople()
++ void setMaxPeople(int)
++ IntegerProperty maxPeopleProperty()
++ String getDataEvent()
++ void setDataEvent(String)
++ StringProperty dataEventProperty()
++ int getIdType()
++ void setIdType(int)
++ IntegerProperty idTypeProperty()
++ int getIdStatus()
++ void setIdStatus(int)
++ IntegerProperty idStatusProperty()
++ int getIdOrganizer()
++ void setIdOrganizer(int)
++ IntegerProperty idOrganizerProperty()
++ String getDate()
++ StringProperty dateProperty()
++ String getTime()
++ StringProperty timeProperty()
++ String getStatus()
++ StringProperty statusProperty()
++ String toString()
+}
+
+
+class model.CurrentUser {
+- int id
+- String username
+- String email
+- int roleId
++ int getId()
++ String getUsername()
++ String getEmail()
++ int getRoleId()
+}
+
+
+@enduml

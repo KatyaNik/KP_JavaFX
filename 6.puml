@@ -1,0 +1,55 @@
+@startuml
+class com.example.platform_for_volunteer_projects.OrganizerController {
+- TableView<Event> tableViewMeetings
+- TableColumn<Event,String> column1
+- TableColumn<Event,String> column2
+- TextField textFieldNameMeet
+- TextArea textAreaDescriptionMeets
+- TextField textFieldLocationMeets
+- TextField textFieldParticipantsMeets
+- ComboBox<String> comboBoxCategoryMeets
+- ComboBox<String> comboBoxStatysMeets
+- Button buttonAddMeets
+- TextField textFieldPTimeToMeet
+- TableView<Event> eventsTable
+- Button buttonDeleteMeets
+- Tab tabLenta
+- TableView<Event> tableViewNews
+- TableColumn<Event,String> newsColumn1
+- TableColumn<Event,String> newsColumn2
+- int editingEventId
++ CurrentUser currentUser
+- ObservableList<Event> eventsData
+- Button buttonLogout
++ void initUserData(CurrentUser)
+- void handleLogout()
++ void initialize()
+- void loadNewsFromDatabase()
+- Connection getConnection()
++ void buttonDeleteMeetsOnAction()
+- void showAlert(String,String,String)
+- void fillFormWithSelectedEvent(Event)
++ void handleRed()
+- int getTypeIdByName(String,Connection)
+- int getStatusIdByName(String,Connection)
+- void handleAddEvent()
+- void loadEventsFromDatabase()
+- void clearFields()
+- void showAlert(Alert.AlertType,String,String)
+}
+
+
+class com.example.platform_for_volunteer_projects.OrganizerController$Event {
+- String dataEvent
+- int id
+- String name
++ int getId()
++ String getDataEvent()
++ String getName()
+}
+
+
+
+
+com.example.platform_for_volunteer_projects.OrganizerController +.. com.example.platform_for_volunteer_projects.OrganizerController$Event
+@enduml
