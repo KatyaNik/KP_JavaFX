@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.example.platform_for_volunteer_projects","l":"com.example.platform_for_volunteer_projects"},{"m":"com.example.platform_for_volunteer_projects","l":"model"}];updateSearchResults();

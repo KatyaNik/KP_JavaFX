@@ -2,7 +2,7 @@ module com.example.platform_for_volunteer_projects {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-    requires jbcrypt; // Добавьте эту строку
+    requires jbcrypt;
     requires java.mail;
     requires itextpdf;
     requires org.apache.poi.ooxml;

@@ -22,6 +22,8 @@
     </repositories>
 
     <dependencies>
+
+
         <dependency>
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
