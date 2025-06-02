@@ -1,0 +1,29 @@
+@startuml
+class com.example.platform_for_volunteer_projects.HelloApplication {
+}
+class com.example.platform_for_volunteer_projects.MainController {
+}
+class com.example.platform_for_volunteer_projects.RegistrationController {
+}
+class com.example.platform_for_volunteer_projects.RegistrationController$PasswordUtils {
+}
+class com.example.platform_for_volunteer_projects.LoginController {
+}
+class com.example.platform_for_volunteer_projects.LoginController$PasswordUtils {
+}
+class com.example.platform_for_volunteer_projects.OrganizerController {
+}
+class com.example.platform_for_volunteer_projects.OrganizerController$Event {
+}
+class com.example.platform_for_volunteer_projects.ObserverController {
+}
+class com.example.platform_for_volunteer_projects.ObserverController$Event {
+}
+
+
+javafx.application.Application <|-- com.example.platform_for_volunteer_projects.HelloApplication
+com.example.platform_for_volunteer_projects.RegistrationController +.. com.example.platform_for_volunteer_projects.RegistrationController$PasswordUtils
+com.example.platform_for_volunteer_projects.LoginController +.. com.example.platform_for_volunteer_projects.LoginController$PasswordUtils
+com.example.platform_for_volunteer_projects.OrganizerController +.. com.example.platform_for_volunteer_projects.OrganizerController$Event
+com.example.platform_for_volunteer_projects.ObserverController +.. com.example.platform_for_volunteer_projects.ObserverController$Event
+@enduml

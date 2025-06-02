@@ -1,0 +1,11 @@
+@startuml
+class com.example.platform_for_volunteer_projects.HelloApplication {
++ void start(Stage)
++ {static} void main(String[])
+- {static} void initDatabase()
+}
+
+
+
+javafx.application.Application <|-- com.example.platform_for_volunteer_projects.HelloApplication
+@enduml
