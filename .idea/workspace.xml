@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cc3245c0-1dca-4ee5-b93f-e47cc0ee6e0b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/capture_20250601221759161.bmp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Img/capture_20250601221759161.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/Img/helloaplication.bmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Img/Архитектура.png" beforeDir="false" afterPath="$PROJECT_DIR$/Img/MVP.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +51,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Университет/6 семестр/JavaFX/platform_for_volunteer_projects",
+    "last_opened_file_path": "D:/Университет/6 семестр/JavaFX/КП",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
@@ -59,6 +60,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Университет\6 семестр\JavaFX\platform_for_volunteer_projects\Img" />
       <recent name="D:\Университет\6 семестр\JavaFX\platform_for_volunteer_projects\src\main\java\model" />
     </key>
   </component>
