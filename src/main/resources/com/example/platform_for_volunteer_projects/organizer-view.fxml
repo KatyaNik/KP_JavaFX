@@ -2,30 +2,18 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.paint.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="600.0" prefWidth="800.0"
-      style="-fx-background-color: #f5f5f5;"
-      xmlns="http://javafx.com/javafx/17.0.2-ea"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.platform_for_volunteer_projects.OrganizerController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="800.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.platform_for_volunteer_projects.OrganizerController">
 
     <children>
         <!-- Заголовок -->
-        <Label layoutX="20.0" layoutY="15.0" text="Панель организатора"
-               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <Label layoutX="20.0" layoutY="15.0" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Панель организатора" />
 
         <!-- Кнопка выхода -->
-        <Button fx:id="buttonLogout" layoutX="700.0" layoutY="10.0" mnemonicParsing="false"
-                prefHeight="30.0" prefWidth="80.0" text="Выход" onAction="#handleLogout"
-                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        <Button fx:id="buttonLogout" layoutX="700.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;" text="Выход" />
 
         <!-- Основная панель с вкладками -->
-        <TabPane layoutX="20.0" layoutY="50.0" prefHeight="530.0" prefWidth="760.0"
-                 tabClosingPolicy="UNAVAILABLE" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 5;">
+        <TabPane layoutX="20.0" layoutY="50.0" prefHeight="439.0" prefWidth="760.0" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 5;" tabClosingPolicy="UNAVAILABLE">
 
             <tabs>
                 <!-- Вкладка "Лента" -->
@@ -33,11 +21,9 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="760.0">
                             <children>
-                                <TableView fx:id="tableViewNews" layoutX="10.0" layoutY="10.0"
-                                           prefHeight="480.0" prefWidth="740.0" style="-fx-border-color: #ddd;">
+                                <TableView fx:id="tableViewNews" layoutX="10.0" layoutY="10.0" prefHeight="388.0" prefWidth="740.0" style="-fx-border-color: #ddd;">
                                     <columns>
-                                        <TableColumn fx:id="newsColumn1" prefWidth="370.0" text="Название"
-                                                     style="-fx-font-weight: bold;"/>
+                                        <TableColumn fx:id="newsColumn1" prefWidth="370.0" style="-fx-font-weight: bold;" text="Название" />
                                         <TableColumn fx:id="newsColumn2" prefWidth="370.0" text="Дата" />
                                     </columns>
                                 </TableView>
@@ -49,85 +35,51 @@
                 <!-- Вкладка "Создать новое событие" -->
                 <Tab text="Создать событие">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="760.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="408.0" prefWidth="759.0">
                             <children>
                                 <!-- Левая часть - таблица событий -->
-                                <TableView fx:id="eventsTable" layoutX="10.0" layoutY="10.0"
-                                           prefHeight="380.0" prefWidth="350.0" style="-fx-border-color: #ddd;">
+                                <TableView fx:id="eventsTable" layoutX="10.0" layoutY="10.0" prefHeight="380.0" prefWidth="350.0" style="-fx-border-color: #ddd;">
                                     <columns>
-                                        <TableColumn fx:id="column1" prefWidth="175.0" text="Название"
-                                                     style="-fx-font-weight: bold;"/>
+                                        <TableColumn fx:id="column1" prefWidth="175.0" style="-fx-font-weight: bold;" text="Название" />
                                         <TableColumn fx:id="column2" prefWidth="175.0" text="Дата" />
                                     </columns>
                                 </TableView>
 
                                 <!-- Правая часть - форма создания -->
-                                <VBox layoutX="370.0" layoutY="10.0" spacing="10.0" prefWidth="380.0">
+                                <VBox layoutX="370.0" layoutY="10.0" prefWidth="380.0" spacing="10.0">
                                     <children>
-                                        <TextField fx:id="textFieldNameMeet" prefWidth="380.0" prefHeight="35.0"
-                                                   promptText="Название события" style="-fx-font-size: 14px;"/>
+                                        <TextField fx:id="textFieldNameMeet" prefHeight="35.0" prefWidth="380.0" promptText="Название события" style="-fx-font-size: 14px;" />
 
-                                        <ComboBox fx:id="comboBoxCategoryMeets" prefWidth="380.0" prefHeight="35.0"
-                                                  promptText="Категория мероприятия" style="-fx-font-size: 14px;"/>
+                                        <ComboBox fx:id="comboBoxCategoryMeets" prefHeight="35.0" prefWidth="380.0" promptText="Категория мероприятия" style="-fx-font-size: 14px;" />
 
-                                        <TextArea fx:id="textAreaDescriptionMeets" prefWidth="380.0" prefHeight="100.0"
-                                                  promptText="Описание события" style="-fx-font-size: 14px;"/>
+                                        <TextArea fx:id="textAreaDescriptionMeets" prefHeight="100.0" prefWidth="380.0" promptText="Описание события" style="-fx-font-size: 14px;" />
 
-                                        <TextField fx:id="textFieldLocationMeets" prefWidth="380.0" prefHeight="35.0"
-                                                   promptText="Место проведения" style="-fx-font-size: 14px;"/>
+                                        <TextField fx:id="textFieldLocationMeets" prefHeight="35.0" prefWidth="380.0" promptText="Место проведения" style="-fx-font-size: 14px;" />
 
                                         <HBox spacing="10.0">
                                             <children>
-                                                <TextField fx:id="textFieldPTimeToMeet" prefWidth="185.0" prefHeight="35.0"
-                                                           promptText="Время" style="-fx-font-size: 14px;"/>
-                                                <TextField fx:id="textFieldParticipantsMeets" prefWidth="185.0" prefHeight="35.0"
-                                                           promptText="Макс. участников" style="-fx-font-size: 14px;"/>
+                                                <TextField fx:id="textFieldPTimeToMeet" prefHeight="35.0" prefWidth="185.0" promptText="Время" style="-fx-font-size: 14px;" />
+                                                <TextField fx:id="textFieldParticipantsMeets" prefHeight="35.0" prefWidth="185.0" promptText="Макс. участников" style="-fx-font-size: 14px;" />
                                             </children>
                                         </HBox>
 
-                                        <ComboBox fx:id="comboBoxStatysMeets" prefWidth="380.0" prefHeight="35.0"
-                                                  promptText="Статус события" style="-fx-font-size: 14px;"/>
+                                        <ComboBox fx:id="comboBoxStatysMeets" prefHeight="35.0" prefWidth="380.0" promptText="Статус события" style="-fx-font-size: 14px;" />
                                     </children>
                                 </VBox>
 
                                 <!-- Кнопки управления -->
-                                <HBox layoutX="10.0" layoutY="400.0" spacing="15.0">
-                                    <children>
-                                        <Button fx:id="buttonDeleteMeets" text="Удалить" onAction="#buttonDeleteMeetsOnAction"
-                                                prefWidth="120.0" prefHeight="35.0"
-                                                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                                <HBox layoutX="10.0" layoutY="400.0" spacing="15.0" />
 
-                                        <Button fx:id="buttonRemoveMeets" text="Редактировать" onAction="#handleRed"
-                                                prefWidth="120.0" prefHeight="35.0"
-                                                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                                  <Button fx:id="buttonAddMeets" layoutX="630.0" layoutY="354.0" onAction="#handleAddEvent" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;" text="Добавить" />
 
-                                        <Button fx:id="buttonAddMeets" text="Добавить" onAction="#handleAddEvent"
-                                                prefWidth="120.0" prefHeight="35.0"
-                                                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;"/>
-                                    </children>
-                                </HBox>
+                                  <Button fx:id="buttonRemoveMeets" layoutX="500.0" layoutY="354.0" onAction="#handleRed" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;" text="Редактировать" />
+                                  <Button fx:id="buttonDeleteMeets" layoutX="370.0" layoutY="354.0" onAction="#buttonDeleteMeetsOnAction" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;" text="Удалить" />
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
 
-                <!-- Вкладка "Мои события" -->
-                <Tab text="Мои события">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="760.0">
-                            <children>
-                                <TableView fx:id="tableViewMeetings" layoutX="10.0" layoutY="10.0"
-                                           prefHeight="480.0" prefWidth="740.0" style="-fx-border-color: #ddd;">
-                                    <columns>
-                                        <TableColumn prefWidth="370.0" text="Название"
-                                                     style="-fx-font-weight: bold;"/>
-                                        <TableColumn prefWidth="370.0" text="Дата" />
-                                    </columns>
-                                </TableView>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
+
             </tabs>
         </TabPane>
     </children>

@@ -3,6 +3,7 @@ package com.example.platform_for_volunteer_projects;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -46,8 +47,30 @@ public class MainController {
     @FXML private TableColumn<Event, String> meetingTimeColumn;
     @FXML private TableColumn<Event, String> meetingStatusColumn;
 
+    @FXML private TableView<Event> tableViewNews;
+    @FXML private TableColumn<Event, String> newsTitleColumn;
+    @FXML private TableColumn<Event, String> newsDateColumn;
+    @FXML private TableColumn<Event, String> newsLocationColumn;
+    @FXML private TableColumn<Event, String> newsStatusColumn;
+    @FXML private TextField searchField;
+
+    private ObservableList<Event> allEvents = FXCollections.observableArrayList();
+    private FilteredList<Event> filteredEvents = new FilteredList<>(allEvents);
+
+
     @FXML
     public void initialize() {
+        // Инициализация таблицы
+        newsTitleColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        newsDateColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+        newsLocationColumn.setCellValueFactory(cellData -> cellData.getValue().locationProperty());
+        newsStatusColumn.setCellValueFactory(cellData -> cellData.getValue().statusProperty());
+
+        // Загрузка данных из БД
+        loadEventsFromDatabase();
+
+        // Установка фильтрованного списка в таблицу
+        tableViewNews.setItems(filteredEvents);
         initializeMeetingsTable();
         initializeRecordsTable();
         buttonRecordsMeets.setOnAction(event -> registerForEvent());
@@ -56,6 +79,63 @@ public class MainController {
     public void initUserData(CurrentUser user) {
         this.currentUser = user;
         loadEventsFromDatabase();
+        loadUserMeetingsFromDatabase(); // Загружаем мероприятия пользователя
+    }
+    @FXML
+    private void handleSearch() {
+        String searchText = searchField.getText().toLowerCase();
+
+        filteredEvents.setPredicate(event -> {
+            if (searchText == null || searchText.isEmpty()) {
+                return true; // Показывать все события если поиск пустой
+            }
+
+            // Проверяем содержит ли название события искомый текст
+            return event.getName().toLowerCase().contains(searchText);
+        });
+    }
+
+    private void loadUserMeetingsFromDatabase() {
+        String url = "jdbc:postgresql://localhost:5434/kp_java";
+        String user = "postgres";
+        String password = "1234";
+
+        if (currentUser == null) {
+            return;
+        }
+
+        String sql = "SELECT e.* FROM events_of_system e " +
+                "JOIN user_events ue ON e.id_event = ue.event_id " +
+                "WHERE ue.user_id = ?";
+
+        try (Connection connection = DriverManager.getConnection(url, user, password);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, currentUser.getId());
+            ResultSet resultSet = statement.executeQuery();
+
+            ObservableList<Event> userEvents = FXCollections.observableArrayList();
+
+            while (resultSet.next()) {
+                Event event = new Event(
+                        resultSet.getInt("id_event"),
+                        resultSet.getString("name_of_event"),
+                        resultSet.getString("description"),
+                        resultSet.getString("location_of_event"),
+                        resultSet.getInt("max_people"),
+                        resultSet.getInt("id_type_of_event"),
+                        resultSet.getInt("id_status_of_event"),
+                        resultSet.getInt("id_organizer"),
+                        resultSet.getString("dataevent")
+                );
+                userEvents.add(event);
+            }
+
+            tableViewMeetings.setItems(userEvents);
+
+        } catch (SQLException e) {
+            showAlert("Ошибка базы данных", "Не удалось загрузить мероприятия пользователя: " + e.getMessage());
+        }
     }
 
     private void initializeMeetingsTable() {
@@ -88,6 +168,8 @@ public class MainController {
              ResultSet resultSet = statement.executeQuery("SELECT * FROM events_of_system")) {
 
             eventList.clear();
+            allEvents.clear(); // Очищаем список всех событий
+
             while (resultSet.next()) {
                 Event event = new Event(
                         resultSet.getInt("id_event"),
@@ -101,16 +183,17 @@ public class MainController {
                         resultSet.getString("dataevent")
                 );
                 eventList.add(event);
+                allEvents.add(event); // Добавляем событие в оба списка
             }
 
             tableViewRecords.setItems(eventList);
             tableViewMeetings.setItems(eventList);
+            tableViewNews.setItems(filteredEvents); // Убедитесь, что таблица news использует filteredEvents
 
         } catch (SQLException e) {
             showAlert("Ошибка базы данных", "Не удалось загрузить события: " + e.getMessage());
         }
     }
-
     @FXML
     private void handleLogout() {
         try {
@@ -223,20 +306,41 @@ public class MainController {
         new Thread(() -> {
             try {
                 // Логика записи в БД
-                String emailContent = String.format(
-                        "Уважаемый %s, вы успешно записались на событие: %s\nМесто: %s\nМакс. участников: %d",
-                        currentUser.getUsername(),
-                        selectedEvent.getName(),
-                        selectedEvent.getLocation(),
-                        selectedEvent.getMaxPeople()
-                );
+                String url = "jdbc:postgresql://localhost:5434/kp_java";
+                String dbUser = "postgres";
+                String dbPassword = "1234";
 
-                // Отправка email
-                sendEmail(currentUser.getEmail(), "Подтверждение регистрации", emailContent);
+                String sql = "INSERT INTO user_events (user_id, event_id) VALUES (?, ?)";
 
-                Platform.runLater(() ->
-                        showAlert("Успешно", "Вы записались на событие. Подтверждение отправлено")
-                );
+                try (Connection connection = DriverManager.getConnection(url, dbUser, dbPassword);
+                     PreparedStatement statement = connection.prepareStatement(sql)) {
+
+                    statement.setInt(1, currentUser.getId());
+                    statement.setInt(2, selectedEvent.getIdEvent());
+                    statement.executeUpdate();
+
+                    // Обновляем список мероприятий пользователя
+                    Platform.runLater(this::loadUserMeetingsFromDatabase);
+
+                    String emailContent = String.format(
+                            "Уважаемый %s, вы успешно записались на событие: %s\nМесто: %s\nМакс. участников: %d",
+                            currentUser.getUsername(),
+                            selectedEvent.getName(),
+                            selectedEvent.getLocation(),
+                            selectedEvent.getMaxPeople()
+                    );
+
+                    // Отправка email
+                    sendEmail(currentUser.getEmail(), "Подтверждение регистрации", emailContent);
+
+                    Platform.runLater(() ->
+                            showAlert("Успешно", "Вы записались на событие. Подтверждение отправлено")
+                    );
+                } catch (SQLException e) {
+                    Platform.runLater(() ->
+                            showAlert("Ошибка", "Не удалось выполнить запись: " + e.getMessage())
+                    );
+                }
             } catch (Exception e) {
                 Platform.runLater(() ->
                         showAlert("Ошибка", "Не удалось выполнить запись: " + e.getMessage())

@@ -30,9 +30,13 @@ public class OrganizerController {
     @FXML private TextField textFieldPTimeToMeet;
     @FXML private TableView<Event> eventsTable; // Изменено с tableViewMyEvents
     @FXML private Button buttonDeleteMeets;
-
+    // Компоненты для вкладки "Мои события"
+    @FXML public TableView<Event> tableViewMeetings1;
+    @FXML private TableColumn<Event, String> meetingNameColumn1;
+    @FXML private TableColumn<Event, String> meetingDateColumn1;
     @FXML
     private Tab tabLenta; // Добавляем ссылку на вкладку "Лента"
+    public Tab tabMyEvents; // Добавляем ссылку на вкладку "Лента"
     @FXML
     private TableView<Event> tableViewNews; // Таблица в разделе "Лента"
     @FXML
@@ -45,8 +49,65 @@ public class OrganizerController {
 
     public void initUserData(CurrentUser user) {
         this.currentUser = user;
-    }
+        loadEventsFromDatabase(); // Теперь загружаем события только после установки пользователя
 
+        // Также обновим ComboBox'ы здесь
+        try (Connection conn = getConnection()) {
+            // Загрузка типов событий
+            String typeSql = "SELECT typeName FROM type_of_event";
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(typeSql)) {
+                comboBoxCategoryMeets.getItems().clear();
+                while (rs.next()) {
+                    comboBoxCategoryMeets.getItems().add(rs.getString("typeName"));
+                }
+            }
+
+            // Загрузка статусов
+            String statusSql = "SELECT status FROM type_of_status";
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(statusSql)) {
+                comboBoxStatysMeets.getItems().clear();
+                while (rs.next()) {
+                    comboBoxStatysMeets.getItems().add(rs.getString("status"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Ошибка", "Ошибка при загрузке данных: " + e.getMessage());
+        }
+    }
+    private void loadUserEvents() {
+        if (currentUser == null) {
+            showAlert(Alert.AlertType.ERROR, "Ошибка", "Пользователь не авторизован");
+            return;
+        }
+
+        ObservableList<Event> userEvents = FXCollections.observableArrayList();
+
+        try (Connection conn = getConnection()) {
+            String sql = "SELECT id_event, name_of_event, dataEvent FROM events_of_system " +
+                    "WHERE id_organizer = ? ORDER BY dataEvent DESC";
+
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, currentUser.getId());
+                ResultSet rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    userEvents.add(new Event(
+                            rs.getInt("id_event"),
+                            rs.getString("dataEvent"),
+                            rs.getString("name_of_event")
+                    ));
+                }
+
+                tableViewMeetings.setItems(userEvents);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Ошибка", "Ошибка при загрузке событий: " + e.getMessage());
+        }
+    }
 
     @FXML
     private Button buttonLogout;
@@ -73,61 +134,39 @@ public class OrganizerController {
             showAlert("Ошибка", "Не удалось открыть окно входа", e.getMessage());
         }
     }
-    @FXML
     public void initialize() {
-        // Инициализация колонок таблицы новостей
-        newsColumn1.setCellValueFactory(new PropertyValueFactory<>("name"));
-        newsColumn2.setCellValueFactory(new PropertyValueFactory<>("dataEvent"));
+        // Инициализация колонок таблиц (с проверкой на null)
+        if (meetingNameColumn1 != null) meetingNameColumn1.setCellValueFactory(new PropertyValueFactory<>("name"));
+        if (meetingDateColumn1 != null) meetingDateColumn1.setCellValueFactory(new PropertyValueFactory<>("dataEvent"));
+        if (column1 != null) column1.setCellValueFactory(new PropertyValueFactory<>("name"));
+        if (column2 != null) column2.setCellValueFactory(new PropertyValueFactory<>("dataEvent"));
+        if (newsColumn1 != null) newsColumn1.setCellValueFactory(new PropertyValueFactory<>("name"));
+        if (newsColumn2 != null) newsColumn2.setCellValueFactory(new PropertyValueFactory<>("dataEvent"));
 
-        // Добавляем слушатель для вкладки "Лента" (проверяем, что tabLenta не null)
+
+
+        // Слушатель для вкладки "Лента"
         if (tabLenta != null) {
             tabLenta.setOnSelectionChanged(event -> {
-                if (tabLenta.isSelected()) {
-                    loadNewsFromDatabase();
-                }
+                if (tabLenta.isSelected()) loadNewsFromDatabase();
             });
         }
 
-        buttonDeleteMeets.setOnAction(event -> buttonDeleteMeetsOnAction());
-
-        // Инициализация столбцов таблицы
-        column1.setCellValueFactory(new PropertyValueFactory<>("name"));
-        column2.setCellValueFactory(new PropertyValueFactory<>("dataEvent"));
-
-        // Добавьте слушатель выбора строки
-        eventsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                fillFormWithSelectedEvent(newSelection);
-            }
-        });
-
-        // Загрузка типов событий из БД
-        try (Connection conn = getConnection()) {
-            // Загрузка типов событий
-            String typeSql = "SELECT typeName FROM type_of_event";
-            try (Statement stmt = conn.createStatement();
-                 ResultSet rs = stmt.executeQuery(typeSql)) {
-                while (rs.next()) {
-                    comboBoxCategoryMeets.getItems().add(rs.getString("typeName"));
-                }
-            }
-
-            // Загрузка статусов
-            String statusSql = "SELECT status FROM type_of_status";
-            try (Statement stmt = conn.createStatement();
-                 ResultSet rs = stmt.executeQuery(statusSql)) {
-                while (rs.next()) {
-                    comboBoxStatysMeets.getItems().add(rs.getString("status"));
-                }
-            }
-
-            // Загрузка данных событий
-            loadEventsFromDatabase();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Ошибка", "Ошибка при загрузке данных: " + e.getMessage());
+        // Слушатель кнопки удаления
+        if (buttonDeleteMeets != null) {
+            buttonDeleteMeets.setOnAction(event -> buttonDeleteMeetsOnAction());
         }
+
+        // Слушатель выбора в таблице событий
+        if (eventsTable != null) {
+            eventsTable.getSelectionModel().selectedItemProperty().addListener((obs, old, selected) -> {
+                if (selected != null) fillFormWithSelectedEvent(selected);
+            });
+        }
+
+        // Очистка ComboBox
+        if (comboBoxCategoryMeets != null) comboBoxCategoryMeets.getItems().clear();
+        if (comboBoxStatysMeets != null) comboBoxStatysMeets.getItems().clear();
     }
     private void loadNewsFromDatabase() {
         ObservableList<Event> newsData = FXCollections.observableArrayList();
@@ -152,7 +191,7 @@ public class OrganizerController {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Ошибка", "Ошибка при загрузке новостей: " + e.getMessage());
         }
-    
+
     }
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
@@ -162,7 +201,6 @@ public class OrganizerController {
     }
     @FXML
     public void buttonDeleteMeetsOnAction() {
-        // Получаем выбранное мероприятие из таблицы
         Event selectedEvent = eventsTable.getSelectionModel().getSelectedItem();
 
         if (selectedEvent == null) {
@@ -171,18 +209,29 @@ public class OrganizerController {
         }
 
         try (Connection conn = getConnection()) {
+            // Проверяем, что событие принадлежит текущему пользователю
+            String checkSql = "SELECT 1 FROM events_of_system WHERE id_event = ? AND id_organizer = ?";
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+                checkStmt.setInt(1, selectedEvent.getId());
+                checkStmt.setInt(2, currentUser.getId());
+
+                if (!checkStmt.executeQuery().next()) {
+                    showAlert("Ошибка", "Доступ запрещен", "Вы не можете удалить это мероприятие.");
+                    return;
+                }
+            }
+
             // SQL запрос для удаления записи
-            String sql = "DELETE FROM events_of_system WHERE id_event = ?";
+            String sql = "DELETE FROM events_of_system WHERE id_event = ? AND id_organizer = ?";
 
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, selectedEvent.getId());
+                pstmt.setInt(2, currentUser.getId());
 
-                // Выполняем запрос
                 int affectedRows = pstmt.executeUpdate();
 
                 if (affectedRows > 0) {
                     showAlert("Успех", "Мероприятие удалено", "Мероприятие было успешно удалено из базы данных.");
-                    // Обновляем таблицу после удаления
                     loadEventsFromDatabase();
                 } else {
                     showAlert("Ошибка", "Не удалось удалить мероприятие", "Мероприятие не было удалено из базы данных.");
@@ -203,9 +252,10 @@ public class OrganizerController {
 
     private void fillFormWithSelectedEvent(Event selectedEvent) {
         try (Connection conn = getConnection()) {
-            String sql = "SELECT * FROM events_of_system WHERE name_of_event = ?";
+            String sql = "SELECT * FROM events_of_system WHERE id_event = ? AND id_organizer = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, selectedEvent.getName());
+                pstmt.setInt(1, selectedEvent.getId());
+                pstmt.setInt(2, currentUser.getId());
                 ResultSet rs = pstmt.executeQuery();
 
                 if (rs.next()) {
@@ -218,6 +268,8 @@ public class OrganizerController {
                     // Установка значений в ComboBox
                     comboBoxCategoryMeets.getSelectionModel().select(rs.getString("id_type_of_event"));
                     comboBoxStatysMeets.getSelectionModel().select(rs.getString("id_status_of_event"));
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Ошибка", "Событие не найдено или у вас нет прав на его редактирование");
                 }
             }
         } catch (SQLException e) {
@@ -228,13 +280,29 @@ public class OrganizerController {
 
     @FXML
     public void handleRed(){
-        // Проверяем, выбрана ли строка для редактирования
         Event selectedEvent = eventsTable.getSelectionModel().getSelectedItem();
         if (selectedEvent == null) {
             showAlert(Alert.AlertType.WARNING, "Предупреждение", "Выберите событие для редактирования");
             return;
         }
 
+        // Проверяем, что событие принадлежит текущему пользователю
+        try (Connection conn = getConnection()) {
+            String checkSql = "SELECT 1 FROM events_of_system WHERE id_event = ? AND id_organizer = ?";
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+                checkStmt.setInt(1, selectedEvent.getId());
+                checkStmt.setInt(2, currentUser.getId());
+
+                if (!checkStmt.executeQuery().next()) {
+                    showAlert(Alert.AlertType.ERROR, "Ошибка", "Вы не можете редактировать это мероприятие.");
+                    return;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Ошибка", "Ошибка при проверке прав: " + e.getMessage());
+            return;
+        }
         // Получаем данные из полей ввода
         String name = textFieldNameMeet.getText().trim();
         String description = textAreaDescriptionMeets.getText().trim();
@@ -402,17 +470,20 @@ public class OrganizerController {
     }
 
     private void loadEventsFromDatabase() {
+        if (currentUser == null) {
+            System.out.println("Ошибка: currentUser не установлен");
+            return;
+        }
+
         ObservableList<Event> eventsData = FXCollections.observableArrayList();
 
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5434/kp_java",
-                "postgres",
-                "1234")) {
+        try (Connection conn = getConnection()) {
+            String sql = "SELECT id_event, dataEvent, name_of_event FROM events_of_system " +
+                    "WHERE id_organizer = ? ORDER BY dataEvent";
 
-            String sql = "SELECT id_event, dataEvent, name_of_event FROM events_of_system ORDER BY dataEvent";
-
-            try (Statement stmt = conn.createStatement();
-                 ResultSet rs = stmt.executeQuery(sql)) {
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, currentUser.getId());
+                ResultSet rs = pstmt.executeQuery();
 
                 while (rs.next()) {
                     eventsData.add(new Event(
@@ -421,7 +492,6 @@ public class OrganizerController {
                             rs.getString("name_of_event")
                     ));
                 }
-
                 eventsTable.setItems(eventsData);
             }
         } catch (SQLException e) {

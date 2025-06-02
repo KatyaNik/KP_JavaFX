@@ -21,7 +21,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="760.0">
                      <children>
-                        <TableView fx:id="tableViewNews" layoutX="10.0" layoutY="10.0" prefHeight="380.0" prefWidth="740.0" style="-fx-border-color: #ddd;">
+                        <TableView fx:id="tableViewNews" layoutX="10.0" layoutY="52.0" prefHeight="338.0" prefWidth="740.0" style="-fx-border-color: #ddd;">
                            <columns>
                               <TableColumn fx:id="newsTitleColumn" prefWidth="300.0" style="-fx-font-weight: bold;" text="Название события" />
                               <TableColumn fx:id="newsDateColumn" prefWidth="150.0" text="Дата" />
@@ -29,6 +29,8 @@
                               <TableColumn fx:id="newsStatusColumn" prefWidth="140.0" text="Статус" />
                            </columns>
                         </TableView>
+                        <TextField fx:id="searchField" layoutX="10.0" layoutY="14.0" prefHeight="26.0" prefWidth="602.0" />
+                        <Button layoutX="621.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="123.0" text="Найти" onAction="#handleSearch" />
                      </children>
                   </AnchorPane>
                </content>
@@ -66,7 +68,7 @@
                               <TableColumn fx:id="meetingStatusColumn" prefWidth="190.0" text="Статус записи" />
                            </columns>
                         </TableView>
-                        <Button onAction="#handleGenerateCertificate" layoutX="312.0" layoutY="360.0" mnemonicParsing="false" text="Получить сертификат" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                        <Button layoutX="312.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleGenerateCertificate" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold;" text="Получить сертификат" />
                      </children>
                   </AnchorPane>
                </content>
