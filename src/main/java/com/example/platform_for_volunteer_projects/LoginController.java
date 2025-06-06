@@ -32,11 +32,7 @@ public class LoginController {
             return;
         }
 
-        try (Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5434/kp_java",
-                "postgres",
-                "1234")) {
-
+        try (Connection conn = getConnection()) {
             String sql = "SELECT id_user, username, email, id_of_role, passwordOfUser FROM users_of_system WHERE email = ?";
 
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -68,6 +64,14 @@ public class LoginController {
             showAlert(Alert.AlertType.ERROR, "Ошибка", "Ошибка при входе в систему: " + e.getMessage());
         }
     }
+
+    protected Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(
+                "jdbc:postgresql://localhost:5434/kp_java",
+                "postgres",
+                "1234");
+    }
+
     @FXML
     public Button buttonView;
     public void handleButtonView(){

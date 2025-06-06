@@ -4,14 +4,54 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cc3245c0-1dca-4ee5-b93f-e47cc0ee6e0b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Img/img.png" afterDir="false" />
+    <list default="true" id="45c36a1e-bca9-46d4-872f-96e60c3517d3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/allclasses-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/allclasses-index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/allpackages-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/allpackages-index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/HelloApplication.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/HelloApplication.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/LoginController.PasswordUtils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/LoginController.PasswordUtils.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/LoginController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/LoginController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/MainController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/MainController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/ObserverController.Event.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/ObserverController.Event.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/ObserverController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/ObserverController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/OrganizerController.Event.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/OrganizerController.Event.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/OrganizerController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/OrganizerController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/RegistrationController.PasswordUtils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/RegistrationController.PasswordUtils.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/RegistrationController.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/RegistrationController.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/com/example/platform_for_volunteer_projects/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/model/CurrentUser.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/model/CurrentUser.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/model/Event.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/model/Event.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/model/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/model/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/model/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/model/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/module-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/com.example.platform_for_volunteer_projects/module-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/help-doc.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/help-doc.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-1.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-10.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-10.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-11.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-11.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-12.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-12.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-13.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-13.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-14.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-14.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-15.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-15.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-2.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-3.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-4.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-4.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-5.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-5.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-6.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-6.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-7.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-7.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-8.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-8.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index-files/index-9.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-9.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/member-search-index.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/member-search-index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/overview-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/overview-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/platform_for_volunteer_projects/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/platform_for_volunteer_projects/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/platform_for_volunteer_projects/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/platform_for_volunteer_projects/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/platform_for_volunteer_projects/OrganizerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/platform_for_volunteer_projects/OrganizerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/platform_for_volunteer_projects/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/platform_for_volunteer_projects/main-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/platform_for_volunteer_projects/organizer-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/platform_for_volunteer_projects/organizer-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/CurrentUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/CurrentUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/model/CurrentUserTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/model/EventTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,70 +61,70 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Nenteru&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/KatyaNik/KP_JavaFX.git&quot;,
-    &quot;accountId&quot;: &quot;0896b13b-f839-4b5d-ad08-851ec6cb3bdb&quot;
-  }
-}</component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 3
+  &quot;associatedIndex&quot;: 4
 }</component>
-  <component name="ProjectId" id="2xvZxWCuEs0A9DB9SK0WG1NnZzr" />
+  <component name="ProjectId" id="2y8F8Et7wc4gr5gMlKgrHoCJOF4" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.App.executor": "Run",
     "Application.HelloApplication.executor": "Run",
-    "Application.KP.executor": "Run",
-    "Maven.platform_for_volunteer_projects [test].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "JUnit.LoginControllerTest.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Университет/6 семестр/JavaFX/КП",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+    "project.structure.side.proportion": "0.0"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Университет\6 семестр\JavaFX\platform_for_volunteer_projects\Img" />
-      <recent name="D:\Университет\6 семестр\JavaFX\platform_for_volunteer_projects\src\main\java\model" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="KP" type="Application" factoryName="Application">
+  <component name="RunManager" selected="Application.App">
+    <configuration name="App" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.example.platform_for_volunteer_projects.HelloApplication" />
       <module name="platform_for_volunteer_projects" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LoginControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="platform_for_volunteer_projects" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.platform_for_volunteer_projects.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.platform_for_volunteer_projects" />
+      <option name="MAIN_CLASS_NAME" value="com.example.platform_for_volunteer_projects.LoginControllerTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.App" />
+      <item itemvalue="JUnit.LoginControllerTest" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.LoginControllerTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="cc3245c0-1dca-4ee5-b93f-e47cc0ee6e0b" name="Changes" comment="" />
-      <created>1748820757616</created>
+      <changelist id="45c36a1e-bca9-46d4-872f-96e60c3517d3" name="Changes" comment="" />
+      <created>1749208131854</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1748820757616</updated>
+      <updated>1749208131854</updated>
     </task>
     <servers />
   </component>

@@ -28,26 +28,39 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 
+/**
+ * Главный контроллер для управления основным интерфейсом платформы волонтерских проектов.
+ * Обеспечивает отображение событий, регистрацию на мероприятия, генерацию сертификатов и другие функции.
+ */
 public class MainController {
     private CurrentUser currentUser;
     private Event selectedEvent;
     private Event selectedMeeting;
     private ObservableList<Event> eventList = FXCollections.observableArrayList();
+    private ObservableList<Event> newsList = FXCollections.observableArrayList();
+    private String searchText = "";
 
-    @FXML private TableView<Event> tableViewRecords;
-    @FXML private TableColumn<Event, String> nameColumn;
-    @FXML private TableColumn<Event, String> descriptionColumn;
-    @FXML private TableColumn<Event, String> locationColumn;
-    @FXML private TableColumn<Event, Integer> maxPeopleColumn;
+    @FXML
+    TableView<Event> tableViewRecords;
+    @FXML
+    TableColumn<Event, String> nameColumn;
+    @FXML
+    TableColumn<Event, String> descriptionColumn;
+    @FXML
+    TableColumn<Event, String> locationColumn;
+    @FXML
+    TableColumn<Event, Integer> maxPeopleColumn;
     @FXML private Button buttonRecordsMeets;
     @FXML private Button buttonLogout;
-    @FXML private TableView<Event> tableViewMeetings;
+    @FXML
+    TableView<Event> tableViewMeetings;
     @FXML private TableColumn<Event, String> meetingNameColumn;
     @FXML private TableColumn<Event, String> meetingDateColumn;
     @FXML private TableColumn<Event, String> meetingTimeColumn;
     @FXML private TableColumn<Event, String> meetingStatusColumn;
 
-    @FXML private TableView<Event> tableViewNews;
+    @FXML
+    TableView<Event> tableViewNews;
     @FXML private TableColumn<Event, String> newsTitleColumn;
     @FXML private TableColumn<Event, String> newsDateColumn;
     @FXML private TableColumn<Event, String> newsLocationColumn;
@@ -57,7 +70,76 @@ public class MainController {
     private ObservableList<Event> allEvents = FXCollections.observableArrayList();
     private FilteredList<Event> filteredEvents = new FilteredList<>(allEvents);
 
+    // Геттеры и сеттеры для тестирования
+    public CurrentUser getCurrentUser() {
+        return currentUser;
+    }
 
+    public void setCurrentUser(CurrentUser currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public Event getSelectedEvent() {
+        return selectedEvent;
+    }
+
+    public void setSelectedEvent(Event selectedEvent) {
+        this.selectedEvent = selectedEvent;
+    }
+
+    public Event getSelectedMeeting() {
+        return selectedMeeting;
+    }
+
+    public void setSelectedMeeting(Event selectedMeeting) {
+        this.selectedMeeting = selectedMeeting;
+    }
+
+    public ObservableList<Event> getEventList() {
+        return eventList;
+    }
+
+    public void setEventList(ObservableList<Event> eventList) {
+        this.eventList = eventList;
+    }
+
+    public ObservableList<Event> getNewsList() {
+        return newsList;
+    }
+
+    public void setNewsList(ObservableList<Event> newsList) {
+        this.newsList = newsList;
+    }
+
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
+        updateFilteredEvents();
+    }
+
+    public ObservableList<Event> getFilteredEvents() {
+        return filteredEvents;
+    }
+
+    private void updateFilteredEvents() {
+        filteredEvents.setPredicate(event -> {
+            if (searchText == null || searchText.isEmpty()) {
+                return true;
+            }
+            String lowerCaseFilter = searchText.toLowerCase();
+            return event.getName().toLowerCase().contains(lowerCaseFilter) ||
+                   event.getDescription().toLowerCase().contains(lowerCaseFilter) ||
+                   event.getLocation().toLowerCase().contains(lowerCaseFilter);
+        });
+    }
+
+    /**
+     * Инициализирует контроллер после загрузки FXML-файла.
+     * Настраивает таблицы, загружает данные из базы данных и устанавливает обработчики событий.
+     */
     @FXML
     public void initialize() {
         // Инициализация таблицы
@@ -76,11 +158,21 @@ public class MainController {
         buttonRecordsMeets.setOnAction(event -> registerForEvent());
     }
 
+    /**
+     * Инициализирует данные текущего пользователя.
+     *
+     * @param user объект CurrentUser, представляющий текущего пользователя.
+     */
     public void initUserData(CurrentUser user) {
         this.currentUser = user;
         loadEventsFromDatabase();
         loadUserMeetingsFromDatabase(); // Загружаем мероприятия пользователя
     }
+
+    /**
+     * Обрабатывает поиск событий по введенному тексту.
+     * Фильтрует список событий и обновляет таблицу.
+     */
     @FXML
     private void handleSearch() {
         String searchText = searchField.getText().toLowerCase();
@@ -95,6 +187,9 @@ public class MainController {
         });
     }
 
+    /**
+     * Загружает мероприятия текущего пользователя из базы данных.
+     */
     private void loadUserMeetingsFromDatabase() {
         String url = "jdbc:postgresql://localhost:5434/kp_java";
         String user = "postgres";
@@ -138,6 +233,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Инициализирует таблицу мероприятий пользователя.
+     */
     private void initializeMeetingsTable() {
         meetingNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         meetingDateColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
@@ -148,6 +246,9 @@ public class MainController {
                 (observable, oldValue, newValue) -> selectedMeeting = newValue);
     }
 
+    /**
+     * Инициализирует таблицу записей на события.
+     */
     private void initializeRecordsTable() {
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         descriptionColumn.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
@@ -158,6 +259,9 @@ public class MainController {
                 (observable, oldValue, newValue) -> selectedEvent = newValue);
     }
 
+    /**
+     * Загружает список всех событий из базы данных.
+     */
     private void loadEventsFromDatabase() {
         String url = "jdbc:postgresql://localhost:5434/kp_java";
         String user = "postgres";
@@ -194,6 +298,11 @@ public class MainController {
             showAlert("Ошибка базы данных", "Не удалось загрузить события: " + e.getMessage());
         }
     }
+
+    /**
+     * Обрабатывает выход пользователя из системы.
+     * Закрывает текущее окно и открывает окно входа.
+     */
     @FXML
     private void handleLogout() {
         try {
@@ -211,6 +320,10 @@ public class MainController {
         }
     }
 
+    /**
+     * Генерирует сертификат для выбранного мероприятия.
+     * Позволяет пользователю выбрать место для сохранения сертификата.
+     */
     @FXML
     private void handleGenerateCertificate() {
         if (selectedMeeting == null) {
@@ -240,6 +353,15 @@ public class MainController {
         }
     }
 
+    /**
+     * Создает Word-документ сертификата.
+     *
+     * @param filePath путь для сохранения файла.
+     * @param recipientName имя получателя сертификата.
+     * @param eventName название мероприятия.
+     * @param date дата мероприятия.
+     * @throws IOException если произошла ошибка при создании файла.
+     */
     private void createWordCertificate(String filePath, String recipientName,
                                        String eventName, String date) throws IOException {
         try (XWPFDocument document = new XWPFDocument()) {
@@ -288,11 +410,20 @@ public class MainController {
         }
     }
 
+    /**
+     * Генерирует уникальный номер сертификата.
+     *
+     * @return строка с номером сертификата.
+     */
     private String generateCertificateNumber() {
         return "CERT-" + System.currentTimeMillis();
     }
 
-    private void registerForEvent() {
+    /**
+     * Регистрирует текущего пользователя на выбранное событие.
+     * Обновляет базу данных, отправляет подтверждение по email.
+     */
+    void registerForEvent() {
         if (selectedEvent == null) {
             showAlert("Ошибка", "Пожалуйста, выберите событие из списка");
             return;
@@ -349,6 +480,14 @@ public class MainController {
         }).start();
     }
 
+    /**
+     * Отправляет email с указанным содержимым.
+     *
+     * @param to адрес получателя.
+     * @param subject тема письма.
+     * @param body содержимое письма.
+     * @throws MessagingException если произошла ошибка при отправке email.
+     */
     private void sendEmail(String to, String subject, String body) throws MessagingException {
         final String username = "katyanikitos@gmail.com";
         final String password = "rrcv srhp bloo pugf";
@@ -377,6 +516,12 @@ public class MainController {
         }
     }
 
+    /**
+     * Отображает информационное окно с заданным заголовком и сообщением.
+     *
+     * @param title заголовок окна.
+     * @param message текст сообщения.
+     */
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
